@@ -9,6 +9,7 @@
 .idea/**/shelf
 
 .idea/discord.xml
+target
 
 # Generated files
 .idea/**/contentModel.xml
