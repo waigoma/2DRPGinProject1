@@ -25,18 +25,8 @@ class PlayerMoveAnimation(private val plet: PApplet) {
     init {
         playerImg = isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_S_stand.png"))
 
-        playerImg.save("E:\\waichi\\Desktop\\test\\test\\test.png")
-
-        println(playerImg)
-
         ppm.setPlayerWidth(playerImg.width)
         ppm.setPlayerHeight(playerImg.height)
-    }
-
-    fun setPosition(){
-        playerX = ppm.getPlayerXY()[0]
-        playerY = ppm.getPlayerXY()[1]
-        ppm.setPlayerSpeed(3)
     }
 
     fun keyPressed() { // コード化されているキーが押された
@@ -66,7 +56,9 @@ class PlayerMoveAnimation(private val plet: PApplet) {
     }
 
     fun draw() {
-        drawImg()
+        playerX = ppm.getPlayerXY()[0]
+        playerY = ppm.getPlayerXY()[1]
+
         if (right) {
             time++
             playerX += ppm.getPlayerSpeed()
@@ -91,9 +83,14 @@ class PlayerMoveAnimation(private val plet: PApplet) {
 
         ppm.setPlayerX(playerX)
         ppm.setPlayerY(playerY)
+
+        drawImg()
     }
 
     private fun drawImg() {
+        playerX = ppm.getPlayerXY()[0]
+        playerY = ppm.getPlayerXY()[1]
+
         if (up) {
             playerImg = isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_W_walk.png"))
             if (time > 30) {

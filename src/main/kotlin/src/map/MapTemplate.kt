@@ -2,6 +2,9 @@ package src.map
 
 import processing.core.PApplet
 import processing.core.PImage
+import src.Main
+import src.collision.SquareCollision
+import src.state.StateType
 
 class MapTemplate(
         val name: String,
@@ -16,16 +19,22 @@ class MapTemplate(
         val tileWidth: Int,
         val tileHeight: Int,
         val list: List<Array<Int>>,
+        val sqColList: ArrayList<SquareCollision>,
         val imgs: Array<PImage>
 ) {
     fun display(plet: PApplet) { //マップの一番手前に出てこないところの描写
         var count = 0 //layerカウント
-//        for (col in getColList()) {
-//            if (Main.state === StateType.LOCAL_STATE) col.fixError(-6, -3)
-//            if (Main.state === StateType.WORLD_STATE) col.fixError(4, 4)
-//            col.ObjectCollision()
-//            col.Outside()
-//        }
+
+        for (sqCol in sqColList) {
+            when(Main.stateType.getState()){
+                StateType.LOCAL_STATE -> sqCol.fixError(-6f, -3f)
+                StateType.WORLD_STATE -> sqCol.fixError(4f, 4f)
+            }
+            sqCol.setWH()
+            sqCol.objectCollision()
+            sqCol.outside()
+        }
+
         for (mapNums in list) { //Listからlayerの情報を引き出す(下のlayerから順に)
             var x = 0 //x座標(何個目か)
             var y = 0 //y座標(↑)
@@ -66,7 +75,7 @@ class MapTemplate(
         }
     }
 
-    fun displayImages(index: Int, x: Int, y: Int, plet: PApplet) { //数字の情報から写真を描写する
+    private fun displayImages(index: Int, x: Int, y: Int, plet: PApplet) { //数字の情報から写真を描写する
         val imgX: Float = (x * tileWidth).toFloat() //x座標
         val imgY: Float = (y * tileHeight).toFloat() //y座標
         val pImgs: Array<PImage> = imgs //PImageの配列をget

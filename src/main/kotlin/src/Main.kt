@@ -30,6 +30,8 @@ class Main: PApplet() {
         mapManager = MapManager()
         playerPositionManager = PlayerPositionManager()
 
+        playerPositionManager.setPlayerSpeed(3)
+
         TmxLoader()
 
         title = Title(this)

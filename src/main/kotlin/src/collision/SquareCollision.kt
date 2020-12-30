@@ -12,12 +12,24 @@ class SquareCollision(
 ) {
     private val ppm = Main.playerPositionManager
 
-    private var playerx = ppm.getPlayerXY()[0]
-    private var playery = ppm.getPlayerXY()[1]
-    private val playerWidth = ppm.getPlayerWH()[0]
-    private val playerHeight = ppm.getPlayerWH()[1]
+    private var playerX: Float
+    private var playerY: Float
+    private var playerWidth: Int
+    private var playerHeight: Int
 
     private var first = true
+    
+    init {
+        playerX = ppm.getPlayerXY()[0]
+        playerY = ppm.getPlayerXY()[1]
+        playerWidth = ppm.getPlayerWH()[0]
+        playerHeight = ppm.getPlayerWH()[1]
+    }
+
+    fun setWH(){
+        playerWidth = ppm.getPlayerWH()[0]
+        playerHeight = ppm.getPlayerWH()[1]
+    }
 
     fun fixError(fx: Float, fy: Float) {
         if (first) {
@@ -27,38 +39,42 @@ class SquareCollision(
         }
     }
 
-    fun outside(playerXY: ArrayList<Float>) {
-        if (playerXY[1] > sizeHeight - playerHeight) {     //PlayerHeightはPlayerの大きさがわかり次第いれてください「定数」
-            playery = (sizeHeight - playerHeight).toFloat()
+    fun outside() {
+        playerX = ppm.getPlayerXY()[0]
+        playerY = ppm.getPlayerXY()[1]
+        if (playerY > sizeHeight - playerHeight) {
+            playerY = (sizeHeight - playerHeight).toFloat()
+
         }
 
-        if (playerXY[1] < 0) {
-            playery = 0f
+        if (playerY < 0) {
+            playerY = 0f
         }
 
-        if (playerXY[0] < 0) {
-            playerx = 0f
+        if (playerX < 0) {
+            playerX = 0f
         }
 
-        if (playerXY[0] > sizeWidth - playerWidth) {
-            playerx = (sizeWidth - playerWidth).toFloat()
+        if (playerX > sizeWidth - playerWidth) {
+            playerX = (sizeWidth - playerWidth).toFloat()
         }
 
-        ppm.setPlayerX(playerx)
-        ppm.setPlayerY(playery)
+        ppm.setPlayerX(playerX)
+        ppm.setPlayerY(playerY)
     }
 
-    fun objectCollision(playerXY: ArrayList<Float>) {
-        if (playerXY[0] < x + width && playerXY[0] + playerWidth > x && playerXY[1] < y + height && playerXY[1] + playerHeight > y) {
+    fun objectCollision() {
+        playerX = ppm.getPlayerXY()[0]
+        playerY = ppm.getPlayerXY()[1]
+        if (playerX < x + width && playerX + playerWidth > x && playerY < y + height && playerY + playerHeight > y) {
             when{
-                playerXY[0] > x + width - 4 -> playerx = x + width
-                playerXY[0] + playerWidth < x + 4 -> playerx = x - playerWidth
-                playerXY[1] > y + height / 2 -> playery = y + height
-                playerXY[1] + playerHeight < y + height / 2 -> playery = y - playerHeight
+                playerX > x + width - 4 -> playerX = x + width
+                playerX + playerWidth < x + 4 -> playerX = x - playerWidth
+                playerY > y + height / 2 -> playerY = y + height
+                playerY + playerHeight < y + height / 2 -> playerY = y - playerHeight
             }
-
-            ppm.setPlayerX(playerx)
-            ppm.setPlayerY(playery)
         }
+        ppm.setPlayerX(playerX)
+        ppm.setPlayerY(playerY)
     }
 }

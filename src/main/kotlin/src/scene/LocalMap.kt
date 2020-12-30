@@ -31,7 +31,6 @@ class LocalMap(private val plet: PApplet) {
         if (mapManager.exists("1village.tmx")) mapTmp = mapManager.get("1village.tmx")
         ppm.setPlayerX(162f)
         ppm.setPlayerY(142f)
-        pma.setPosition()
     }
 
     fun keyPressed() {
