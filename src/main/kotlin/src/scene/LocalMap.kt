@@ -35,11 +35,11 @@ class LocalMap(private val plet: PApplet) {
     }
 
     fun keyPressed() {
-//        pmove.keyPressed()
+        pma.keyPressed()
     }
 
     fun keyReleased() {
-//        pmove.keyReleased()
+        pma.keyReleased()
     }
 
     fun display() {
@@ -57,6 +57,7 @@ class LocalMap(private val plet: PApplet) {
             plet.background(0)
             first = false
         }
+
         mapTmp.display(plet)
         pma.draw()
 //        mapTmp.event()

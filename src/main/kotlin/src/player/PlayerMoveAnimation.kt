@@ -36,6 +36,7 @@ class PlayerMoveAnimation(private val plet: PApplet) {
     fun setPosition(){
         playerX = ppm.getPlayerXY()[0]
         playerY = ppm.getPlayerXY()[1]
+        ppm.setPlayerSpeed(3)
     }
 
     fun keyPressed() { // コード化されているキーが押された
@@ -47,19 +48,19 @@ class PlayerMoveAnimation(private val plet: PApplet) {
 
     fun keyReleased() { //キーが離されたら
         if (plet.keyCode == PConstants.RIGHT || plet.key == 'd' || plet.key == 'D') {
-            playerImg = PImage(ImageIO.read(this.javaClass.getResourceAsStream("/data/img/character/playerImg_D_stand.png")))
+            playerImg = isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_D_stand.png"))
             right = false
         }
         if (plet.keyCode == PConstants.LEFT || plet.key == 'a' || plet.key == 'A') {
-            playerImg = PImage(ImageIO.read(this.javaClass.getResourceAsStream("/data/img/character/playerImg_A_stand.png")))
+            playerImg = isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_A_stand.png"))
             left = false
         }
         if (plet.keyCode == PConstants.UP || plet.key == 'w' || plet.key == 'W') {
-            playerImg = PImage(ImageIO.read(this.javaClass.getResourceAsStream("/data/img/character/playerImg_W_stand.png")))
+            playerImg = isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_W_stand.png"))
             up = false
         }
         if (plet.keyCode == PConstants.DOWN || plet.key == 's' || plet.key == 'S') {
-            playerImg = PImage(ImageIO.read(this.javaClass.getResourceAsStream("/data/img/character/playerImg_S_stand.png")))
+            playerImg = isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_S_stand.png"))
             down = false
         }
     }
@@ -94,36 +95,36 @@ class PlayerMoveAnimation(private val plet: PApplet) {
 
     private fun drawImg() {
         if (up) {
-            playerImg = PImage(ImageIO.read(this.javaClass.getResourceAsStream("/data/img/character/playerImg_W_walk.png")))
+            playerImg = isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_W_walk.png"))
             if (time > 30) {
-                playerImg = PImage(ImageIO.read(this.javaClass.getResourceAsStream("/data/img/character/playerImg_W_walk2.png")))
+                playerImg = isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_W_walk2.png"))
             }
         }
 
         if (left) {
-            playerImg = PImage(ImageIO.read(this.javaClass.getResourceAsStream("/data/img/character/playerImg_A_walk")))
+            playerImg = isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_A_walk.png"))
             if (time > 30) {
-                playerImg = PImage(ImageIO.read(this.javaClass.getResourceAsStream("/data/img/character/playerImg_A_walk2.png")))
+                playerImg = isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_A_walk2.png"))
             }
         }
 
         if (down) {
-            playerImg = PImage(ImageIO.read(this.javaClass.getResourceAsStream("/data/img/character/playerImg_S_walk.png")))
+            playerImg = isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_S_walk.png"))
             if (time > 30) {
-                playerImg = PImage(ImageIO.read(this.javaClass.getResourceAsStream("/data/img/character/playerImg_S_walk2.png")))
+                playerImg = isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_S_walk2.png"))
             }
         }
 
         if (right) {
-            playerImg = PImage(ImageIO.read(this.javaClass.getResourceAsStream("/data/img/character/playerImg_D_walk.png")))
+            playerImg = isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_D_walk.png"))
             if (time > 30) {
-                playerImg = PImage(ImageIO.read(this.javaClass.getResourceAsStream("/data/img/character/playerImg_D_walk2.png")))
+                playerImg = isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_D_walk2.png"))
             }
         }
         plet.image(playerImg, playerX, playerY)
     }
 
-    fun isToPImage(inputStream: InputStream): PImage{
+    private fun isToPImage(inputStream: InputStream): PImage{
         val image = ImageIO.read(inputStream)
         val bfi = BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB)
         val gr = bfi.createGraphics()

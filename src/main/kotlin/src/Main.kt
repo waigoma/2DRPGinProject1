@@ -49,6 +49,11 @@ class Main: PApplet() {
     }
 
     override fun keyReleased() {
+        when(stateType.getState()){
+            StateType.LOCAL_STATE -> localMap.keyReleased()
+//            StateType.WORLD_STATE -> worldMap.keyPressed()
+
+        }
     }
 
     override fun draw() {
