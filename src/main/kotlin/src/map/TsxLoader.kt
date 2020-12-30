@@ -14,7 +14,7 @@ class TsxLoader(source: String) {
         val factory = DocumentBuilderFactory.newInstance() //loadTmxと同様
         try {
             val path = this.javaClass.getResourceAsStream("/data/tsx/$source")
-            println("path: $source, $path")
+//            println("path: $source, $path")
             val builder = factory.newDocumentBuilder()
             val doc = builder.parse(path)
             val element = doc.documentElement
@@ -67,9 +67,6 @@ class TsxLoader(source: String) {
                 }
             }
             //            System.out.println("Splitting done");
-//            for (int i = 0; i < MapTemplate.listImg.size(); i++) {
-//                ImageIO.write(MapTemplate.listImg.get(i), "png", new File("E:\\waichi\\Desktop\\test\\test\\" + i + ".png"));
-//            }
         } catch (e: Exception) {
             e.printStackTrace()
         }

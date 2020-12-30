@@ -3,6 +3,7 @@ package src
 import processing.core.PApplet
 import src.map.MapManager
 import src.map.TmxLoader
+import src.player.PlayerPositionManager
 import src.scene.LocalMap
 import src.state.StateType
 import src.title.Title
@@ -11,6 +12,7 @@ class Main: PApplet() {
     companion object{
         lateinit var stateType: StateType
         lateinit var mapManager: MapManager
+        lateinit var playerPositionManager: PlayerPositionManager
     }
     private lateinit var title: Title
     private lateinit var localMap: LocalMap
@@ -26,6 +28,7 @@ class Main: PApplet() {
 
         stateType = StateType()
         mapManager = MapManager()
+        playerPositionManager = PlayerPositionManager()
 
         TmxLoader()
 

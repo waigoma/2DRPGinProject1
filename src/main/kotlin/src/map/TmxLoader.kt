@@ -28,7 +28,7 @@ class TmxLoader {
         //きちんと毎回初期化しよう(教訓)
         val mapList: ArrayList<Array<Int>> = ArrayList() //1つのマップのlayer情報をすべて保存
         val listBufImg: ArrayList<BufferedImage> = ArrayList() //解析したBufferedImageを加える
-        val PImgList: ArrayList<PImage> = ArrayList() //BufferedImageをPImgListに変換
+        val pImgList: ArrayList<PImage> = ArrayList() //BufferedImageをPImgListに変換
 //        val colList: ArrayList<Collision> = ArrayList<Collision>()
 //        val nextList: MutableList<MapTrigger> = ArrayList<MapTrigger>()
 //        val backList: MutableList<MapTrigger> = ArrayList<MapTrigger>()
@@ -233,9 +233,9 @@ class TmxLoader {
                 }
             }
             for (bfi in listBufImg) { //BufferedImageをPImageに変換
-                PImgList.add(PImage(bfi))
+                pImgList.add(PImage(bfi))
             }
-            imgs = PImgList.toTypedArray() //PImageのlistを配列に変換
+            imgs = pImgList.toTypedArray() //PImageのlistを配列に変換
             val mapManager = Main.mapManager
             mapManager.register(mapName, MapTemplate(mapName, next, previous, nextX, nextY, previousX, previousY, mapTileWidth, mapTileHeight, tileWidth, tileHeight, mapList, /*colList, nextList, backList, bossList, interactList,*/ imgs)) //map情報を保存
         } catch (e: Exception) {

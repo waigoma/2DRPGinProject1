@@ -6,28 +6,32 @@ import src.Main
 import src.map.MapManager
 import src.map.MapTemplate
 import src.player.PlayerMoveAnimation
+import src.player.PlayerPositionManager
 import src.state.StateType
 
-class LocalMap(val plet: PApplet) {
+class LocalMap(private val plet: PApplet) {
     private val mapManager: MapManager = Main.mapManager
     private val stateType: StateType = Main.stateType
+    private val ppm: PlayerPositionManager = Main.playerPositionManager
+    private val pma: PlayerMoveAnimation = PlayerMoveAnimation(plet)
 
     private lateinit var mapTmp: MapTemplate
-//    lateinit var pma: PlayerMoveAnimation
-    lateinit var next: String
-    lateinit var previous: String
-    var nextX = 0
-    var nextY:Int = 0
-    var previousX:Int = 0
-    var previousY:Int = 0
 
-    var count = 0
+    private lateinit var next: String
+    private lateinit var previous: String
+
+    private var nextX = 0
+    private var nextY:Int = 0
+    private var previousX:Int = 0
+    private var previousY:Int = 0
+
+    var first = true
 
     init {
-//        pma = PlayerMove(plet)
         if (mapManager.exists("1village.tmx")) mapTmp = mapManager.get("1village.tmx")
-//        Collision.Playerx = 162
-//        Collision.Playery = 142
+        ppm.setPlayerX(162f)
+        ppm.setPlayerY(142f)
+        pma.setPosition()
     }
 
     fun keyPressed() {
@@ -39,7 +43,7 @@ class LocalMap(val plet: PApplet) {
     }
 
     fun display() {
-        if (count == 0) {
+        if (first) {
             plet.rectMode(PConstants.CORNER)
             val width: Int = mapTmp.mapTileWidth * mapTmp.tileWidth
             val height: Int = mapTmp.mapTileHeight * mapTmp.tileHeight
@@ -51,26 +55,26 @@ class LocalMap(val plet: PApplet) {
             previousY = mapTmp.previousY
             plet.surface.setSize(width - 10, height - 10)
             plet.background(0)
-//            pmove.setup()
-            //            System.out.println("local");
-            count++
+            first = false
         }
         mapTmp.display(plet)
-//        pmove.draw()
+        pma.draw()
 //        mapTmp.event()
         mapTmp.topDisplay(plet)
+
         if (mapTmp.isNext()) {
             mapTmp = mapManager.get("$next.tmx")
 //            Collision.Playerx = nextX
 //            Collision.Playery = nextY
-            count = 0
+            first = true
             if (mapTmp.name.contains("dungeon1")) stateType.setState(StateType.WORLD_STATE)
-            count = 0
+            first = true
             plet.delay(100)
         }
+
         if (mapTmp.isBack()) {
 //            Main.state = StateType.LOCAL_STATE;
-            count = 0
+            first = true
         }
     }
 }
