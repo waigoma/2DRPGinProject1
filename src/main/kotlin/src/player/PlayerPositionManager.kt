@@ -9,6 +9,11 @@ class PlayerPositionManager {
     private var playerWidth: Int = 0
     private var playerHeight: Int = 0
 
+    private var up: Boolean = false
+    private var down: Boolean = false
+    private var left: Boolean = false
+    private var right: Boolean = false
+
     fun setPlayerX(px: Float){
         playerX = px
     }
@@ -29,6 +34,22 @@ class PlayerPositionManager {
         playerHeight = height
     }
 
+    fun setUp(up: Boolean){
+        this.up = up
+    }
+
+    fun setDown(down: Boolean){
+        this.down = down
+    }
+
+    fun setLeft(left: Boolean){
+        this.left = left
+    }
+
+    fun setRight(right: Boolean){
+        this.right = right
+    }
+
     fun getPlayerXY(): ArrayList<Float>{
         return ArrayList(listOf(
                 playerX,
@@ -45,5 +66,21 @@ class PlayerPositionManager {
 
     fun getPlayerSpeed(): Int{
         return playerSpeed
+    }
+
+    fun getUp(): Boolean{
+        return up
+    }
+
+    fun getDown(): Boolean{
+        return down
+    }
+
+    fun getLeft(): Boolean{
+        return left
+    }
+
+    fun getRight(): Boolean{
+        return right
     }
 }
