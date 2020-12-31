@@ -30,10 +30,12 @@ class PlayerMoveAnimation(private val plet: PApplet) {
     }
 
     fun keyPressed() { // コード化されているキーが押された
-        if (plet.keyCode == PConstants.RIGHT || plet.key == 'd' || plet.key == 'D') right = true
-        if (plet.keyCode == PConstants.LEFT || plet.key == 'a' || plet.key == 'A') left = true
-        if (plet.keyCode == PConstants.UP || plet.key == 'w' || plet.key == 'W') up = true
-        if (plet.keyCode == PConstants.DOWN || plet.key == 's' || plet.key == 'S') down = true
+        if (ppm.getCanMove()) {
+            if (plet.keyCode == PConstants.RIGHT || plet.key == 'd' || plet.key == 'D') right = true
+            if (plet.keyCode == PConstants.LEFT || plet.key == 'a' || plet.key == 'A') left = true
+            if (plet.keyCode == PConstants.UP || plet.key == 'w' || plet.key == 'W') up = true
+            if (plet.keyCode == PConstants.DOWN || plet.key == 's' || plet.key == 'S') down = true
+        }
     }
 
     fun keyReleased() { //キーが離されたら
@@ -41,14 +43,17 @@ class PlayerMoveAnimation(private val plet: PApplet) {
             playerImg = isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_D_stand.png"))
             right = false
         }
+
         if (plet.keyCode == PConstants.LEFT || plet.key == 'a' || plet.key == 'A') {
             playerImg = isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_A_stand.png"))
             left = false
         }
+
         if (plet.keyCode == PConstants.UP || plet.key == 'w' || plet.key == 'W') {
             playerImg = isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_W_stand.png"))
             up = false
         }
+
         if (plet.keyCode == PConstants.DOWN || plet.key == 's' || plet.key == 'S') {
             playerImg = isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_S_stand.png"))
             down = false
@@ -83,6 +88,11 @@ class PlayerMoveAnimation(private val plet: PApplet) {
 
         ppm.setPlayerX(playerX)
         ppm.setPlayerY(playerY)
+
+        ppm.setUp(up)
+        ppm.setDown(down)
+        ppm.setLeft(left)
+        ppm.setRight(right)
 
         drawImg()
     }

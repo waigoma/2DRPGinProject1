@@ -18,9 +18,10 @@ class MapTemplate(
         val mapTileHeight: Int,
         val tileWidth: Int,
         val tileHeight: Int,
-        val list: List<Array<Int>>,
-        val sqColList: ArrayList<SquareCollision>,
-        val imgs: Array<PImage>
+        private val list: List<Array<Int>>,
+        private val sqColList: ArrayList<SquareCollision>,
+        private val interactList: ArrayList<Interact>,
+        private val imgs: Array<PImage>
 ) {
     fun display(plet: PApplet) { //マップの一番手前に出てこないところの描写
         var count = 0 //layerカウント
@@ -89,14 +90,16 @@ class MapTemplate(
         plet.image(img, imgX, imgY) //実際に画像を描写
     }
 
-    fun event() {
-//        for (interact in interactList) {
-//            if (Main.state === StateType.LOCAL_STATE) interact.fixError(-6, -3)
-//            if (Main.state === StateType.WORLD_STATE) interact.fixError(4, 4)
-//            if (interact.trigger()) {
-//                interact.event()
-//            }
-//        }
+    fun event(plet: PApplet) {
+        for (interact in interactList) {
+            when(Main.stateType.getState()){
+                StateType.LOCAL_STATE -> interact.fixError(-6f, -3f)
+                StateType.WORLD_STATE -> interact.fixError(4f, 4f)
+            }
+            if (interact.trigger()) {
+                interact.event(plet)
+            }
+        }
     }
 
     fun isNext(): Boolean {

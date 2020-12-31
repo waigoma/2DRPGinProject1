@@ -8,30 +8,30 @@ class Interact(
     private var x: Float,
     private var y: Float,
     private val width: Float,
-    val height: Float,
-    val sizeWidth: Int,
-    val sizeHeight: Int,
-    val eventId: Int,
-    val name: String,
-    val direction: String,
-    val message: String,
-    val px1: Float,
-    val py1: Float,
-    val plet: PApplet
+    private val height: Float,
+    private val sizeWidth: Int,
+    private val sizeHeight: Int,
+    private val eventId: Int,
+    private val name: String,
+    private val direction: String,
+    private val message: String,
+    private val px1: Float,
+    private val py1: Float,
 ) {
     private val ppm = Main.playerPositionManager
+    private lateinit var plet: PApplet
     
     private var playerX = 0f
     private var playerY = 0f
     private var playerW = 0
     private var playerH = 0
-    
-    var count = 0
-    var chatCount = 0
-    var time = 0
 
-    var px = 0f
-    var py = 0f
+    private var count = 0
+    private var chatCount = 0
+    private var time = 0
+
+    private var px = 0f
+    private var py = 0f
 
     var runDisplayEvent = false
     var runChatEvent = false
@@ -47,21 +47,21 @@ class Interact(
     }
 
     fun trigger(): Boolean {
+        playerX = ppm.getPlayerXY()[0]
+        playerY = ppm.getPlayerXY()[1]
         if (playerX < x + width && playerX + playerW > x && playerY < y + height && playerY + playerH > y) {
-            if (playerX > x + width - 4) {
-                return true
-            } else if (playerX + playerW < x + 4) {
-                return true
-            } else if (playerY > y + height / 2) {
-                return true
-            } else if (playerY + playerH < y + height / 2) {
-                return true
+            when{
+                playerX > x + width - 4 -> return true
+                playerX + playerW < x + 4 -> return true
+                playerY > y + height / 2 -> return true
+                playerY + playerH < y + height / 2 -> return true
             }
         }
         return false
     }
 
-    fun event() {
+    fun event(plet: PApplet) {
+        this.plet = plet
         when (eventId) {
             1 -> {
                 //                System.out.println("event:1");
@@ -93,6 +93,7 @@ class Interact(
         if (chatCount == 0 && runDisplayEvent) {
             px = playerX
             py = playerY
+            ppm.setCanMove(false)
             chatCount++
         }
         
@@ -101,6 +102,7 @@ class Interact(
             if (plet.keyCode == PConstants.ENTER.toInt()) runDisplayEvent = false
             time++
         } else {
+            ppm.setCanMove(true)
             chatCount = 0
         }
     }

@@ -9,6 +9,8 @@ class PlayerPositionManager {
     private var playerWidth: Int = 0
     private var playerHeight: Int = 0
 
+    private var canMove: Boolean = true
+
     private var up: Boolean = false
     private var down: Boolean = false
     private var left: Boolean = false
@@ -50,6 +52,11 @@ class PlayerPositionManager {
         this.right = right
     }
 
+    fun setCanMove(cm: Boolean){
+        this.canMove = cm
+    }
+
+
     fun getPlayerXY(): ArrayList<Float>{
         return ArrayList(listOf(
                 playerX,
@@ -82,5 +89,9 @@ class PlayerPositionManager {
 
     fun getRight(): Boolean{
         return right
+    }
+
+    fun getCanMove(): Boolean{
+        return canMove
     }
 }

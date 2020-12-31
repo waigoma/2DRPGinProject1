@@ -33,7 +33,7 @@ class TmxLoader {
 //        val nextList: MutableList<MapTrigger> = ArrayList<MapTrigger>()
 //        val backList: MutableList<MapTrigger> = ArrayList<MapTrigger>()
 //        val bossList: MutableList<MapTrigger> = ArrayList<MapTrigger>()
-//        val interactList: MutableList<Interact> = ArrayList<Interact>()
+        val interactList: ArrayList<Interact> = ArrayList()
         val imgs: Array<PImage> //PImageの配列
         val factory = DocumentBuilderFactory.newInstance() // 1. DocumentBuilderFactoryのインスタンスを取得する
         try {
@@ -223,7 +223,7 @@ class TmxLoader {
                                         if (pxs.isNotEmpty()) px = pxs.toFloat()
                                         if (pys.isNotEmpty()) py = pys.toFloat()
                                         if (eventIds.isNotEmpty()) eventId = eventIds.toInt()
-//                                        interactList.add(Interact(objX, objY, objWidth, objHeight, mapTileWidth * tileWidth - 10, mapTileHeight * tileHeight - 10, eventId, interactName, direction, message, px, py, plet))
+                                        interactList.add(Interact(objX, objY, objWidth, objHeight, mapTileWidth * tileWidth - 10, mapTileHeight * tileHeight - 10, eventId, interactName, direction, message, px, py))
                                     }
                                     nd1 = nd1.nextSibling //次のnodeを読み込む
                                 }
@@ -237,7 +237,7 @@ class TmxLoader {
             }
             imgs = pImgList.toTypedArray() //PImageのlistを配列に変換
             val mapManager = Main.mapManager
-            mapManager.register(mapName, MapTemplate(mapName, next, previous, nextX, nextY, previousX, previousY, mapTileWidth, mapTileHeight, tileWidth, tileHeight, mapList, sqColList, /*nextList, backList, bossList, interactList,*/ imgs)) //map情報を保存
+            mapManager.register(mapName, MapTemplate(mapName, next, previous, nextX, nextY, previousX, previousY, mapTileWidth, mapTileHeight, tileWidth, tileHeight, mapList, sqColList, /*nextList, backList, bossList,*/ interactList, imgs)) //map情報を保存
         } catch (e: Exception) {
             e.printStackTrace()
         }

@@ -59,7 +59,7 @@ class LocalMap(private val plet: PApplet) {
 
         mapTmp.display(plet)
         pma.draw()
-//        mapTmp.event()
+        mapTmp.event(plet)
         mapTmp.topDisplay(plet)
 
         if (mapTmp.isNext()) {
