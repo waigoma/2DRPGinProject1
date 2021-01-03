@@ -5,6 +5,7 @@ import src.map.MapManager
 import src.map.TmxLoader
 import src.player.PlayerPositionManager
 import src.scene.LocalMap
+import src.scene.WorldMap
 import src.state.StateType
 import src.title.Title
 
@@ -16,7 +17,7 @@ class Main: PApplet() {
     }
     private lateinit var title: Title
     private lateinit var localMap: LocalMap
-//    private lateinit var worldMap: WorldMap
+    private lateinit var worldMap: WorldMap
 
     override fun settings() {
         size(1280, 720)
@@ -36,7 +37,7 @@ class Main: PApplet() {
 
         title = Title(this)
         localMap = LocalMap(this)
-//        worldMap = WorldMap(this)
+        worldMap = WorldMap(this)
 
         val font = createFont("MS Gothic", 50f)
         textFont(font)
@@ -45,7 +46,7 @@ class Main: PApplet() {
     override fun keyPressed() { //キー入力受付
         when(stateType.getState()){
             StateType.LOCAL_STATE -> localMap.keyPressed()
-//            StateType.WORLD_STATE -> worldMap.keyPressed()
+            StateType.WORLD_STATE -> worldMap.keyPressed()
 
         }
     }
@@ -53,7 +54,7 @@ class Main: PApplet() {
     override fun keyReleased() {
         when(stateType.getState()){
             StateType.LOCAL_STATE -> localMap.keyReleased()
-//            StateType.WORLD_STATE -> worldMap.keyPressed()
+            StateType.WORLD_STATE -> worldMap.keyPressed()
 
         }
     }
@@ -67,7 +68,7 @@ class Main: PApplet() {
                 localMap.display()
             }
             StateType.WORLD_STATE -> {
-
+                worldMap.display()
             }
         }
     }

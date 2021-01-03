@@ -16,7 +16,8 @@ class TmxLoader {
     init { //TMX(マップデータ)ファイルを取得
         val list = ArrayList<String>(listOf(
                 "1village.tmx",
-                "1vhouse1.tmx"
+                "1vhouse1.tmx",
+                "dungeon1.tmx"
         ))
         for (file in list) { //マップデータを1つずつ読み込む
             val path = this.javaClass.getResourceAsStream("/data/tmx/$file") //ファイルのPathを取得
