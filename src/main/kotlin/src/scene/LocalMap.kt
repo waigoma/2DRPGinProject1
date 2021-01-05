@@ -68,13 +68,15 @@ class LocalMap(private val plet: PApplet) {
         if (mapTmp.isNext()) {
             if (mapManager.exists("$next.tmx")){
                 mapManager.setCurrentMap(mapManager.get("$next.tmx"))
+
+                ppm.setPlayerX(nextX.toFloat())
+                ppm.setPlayerY(nextY.toFloat())
+
+                if (mapManager.getCurrentMap().name.contains("dungeon1")) stateType.setState(StateType.WORLD_STATE)
             }else{
                 println("LocalMap.kt isNext 「$next.tmx」は存在しません。")
             }
 
-            ppm.setPlayerX(nextX.toFloat())
-            ppm.setPlayerY(nextY.toFloat())
-            if (mapTmp.name.contains("dungeon1")) stateType.setState(StateType.WORLD_STATE)
             plet.delay(100)
         }
 

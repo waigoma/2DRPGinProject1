@@ -54,14 +54,14 @@ class Main: PApplet() {
         }
     }
 
-    override fun keyReleased() {
+    override fun keyReleased() { //キー解放
         when(stateType.getState()){
             StateType.LOCAL_STATE -> localMap.keyReleased()
-            StateType.WORLD_STATE -> worldMap.keyPressed()
+            StateType.WORLD_STATE -> worldMap.keyReleased()
         }
     }
 
-    override fun draw() {
+    override fun draw() {//ステートマシン
         when(stateType.getState()){
             StateType.TITLE_STATE -> {
                 title.run()

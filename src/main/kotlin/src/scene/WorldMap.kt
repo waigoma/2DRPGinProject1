@@ -16,8 +16,6 @@ class WorldMap(private val plet: PApplet) {
     
     private var mapTmp: MapTemplate
 
-    private var first = true
-    
     private var next = ""
     private var previous = ""
     var nextX = 0
@@ -38,60 +36,68 @@ class WorldMap(private val plet: PApplet) {
     }
 
     fun display() {
-        if (first) {
+        if (mapManager.getChange()) {
+            mapTmp = mapManager.getCurrentMap()
             plet.rectMode(PConstants.CORNER)
-            val width: Int = mapTmp.mapTileWidth * mapTmp.tileWidth
-            val height: Int = mapTmp.mapTileHeight * mapTmp.tileHeight
+            val width = mapTmp.mapTileWidth * mapTmp.tileWidth
+            val height = mapTmp.mapTileHeight * mapTmp.tileHeight
+
             next = mapTmp.nextMap
             previous = mapTmp.previousMap
             nextX = mapTmp.nextX
             nextY = mapTmp.nextY
             previousX = mapTmp.previousX
             previousY = mapTmp.previousY
+
             plet.surface.setSize(width - 10, height - 10)
             plet.background(0)
-//            pmove.setup()
-//            Combat.mapName = mapTmp.getMapName()
-            first = false
+
+            ppm.setCanMove(true)
+            mapManager.notChange()
         }
+
+
         mapTmp.display(plet)
         pma.draw()
         mapTmp.topDisplay(plet)
         mapTmp.event(plet)
 
-//        System.out.println(mapTmp.getMapName());
         if (mapTmp.isNext()) {
-//          Main.state = StateType.COMBAT_STATE;
-            mapTmp = mapManager.get("$next.tmx")
-            ppm.setPlayerX(nextX.toFloat())
-            ppm.setPlayerY(nextY.toFloat())
-            first = true
-        }
+            if (mapManager.exists("$next.tmx")){
+                mapManager.setCurrentMap(mapManager.get("$next.tmx"))
 
-        if (mapTmp.isBoss()) {
-//            Collision.Playerx = 312
-//            Collision.Playery = 56
-//            LocalMap.count = 0
-//            Combat.m_name = "モンスターC"
-//             stateType.setState(StateType.COMBAT_STATE)
-        }
+                ppm.setPlayerX(nextX.toFloat())
+                ppm.setPlayerY(nextY.toFloat())
 
-        if (mapTmp.isBack()) {
-            mapTmp = mapManager.get("$previous.tmx")
-            if (mapTmp.name.contains("1village")) {
-                stateType.setState(StateType.LOCAL_STATE)
-                next = mapTmp.nextMap
-//                LocalMap.mapTmp = mapTmp
-                mapTmp = mapManager.get("$next.tmx")
+//                if (mapTmp.name.contains("dungeon1")) stateType.setState(StateType.WORLD_STATE)
+            }else{
+                println("WorldMap.kt isNext 「$next.tmx」は存在しません。")
             }
 
-            ppm.setPlayerX(previousX.toFloat())
-            ppm.setPlayerY(previousY.toFloat())
-//            LocalMap.count = 0
+            plet.delay(100)
         }
-    }
 
-    fun setMapTmp(mapName: String) {
-//        mapTmp = MapTemplate.maps.get("$mapName.tmx")
+//        if (mapTmp.isBoss()) {
+////            Collision.playerX = 312
+////            Collision.playerY = 56
+////            LocalMap.count = 0
+////            Combat.m_name = "モンスターC"
+////             stateType.setState(StateType.COMBAT_STATE)
+//        }
+
+        if (mapTmp.isBack()) {
+            if (mapManager.exists("$previous.tmx")){
+                mapManager.setCurrentMap(mapManager.get("$previous.tmx"))
+
+                if (mapManager.getCurrentMap().name.contains("1village")) stateType.setState(StateType.LOCAL_STATE)
+
+                ppm.setPlayerX(previousX.toFloat())
+                ppm.setPlayerY(previousY.toFloat())
+            }else{
+                println("WorldMap.kt isBack 「$previous.tmx」は存在しません。")
+            }
+
+            plet.delay(100)
+        }
     }
 }
