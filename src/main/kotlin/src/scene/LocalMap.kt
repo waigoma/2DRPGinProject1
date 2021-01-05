@@ -15,20 +15,18 @@ class LocalMap(private val plet: PApplet) {
     private val ppm: PlayerPositionManager = Main.playerPositionManager
     private val pma: PlayerMoveAnimation = PlayerMoveAnimation(plet)
 
-    private lateinit var mapTmp: MapTemplate
+    private var mapTmp: MapTemplate
 
     private lateinit var next: String
     private lateinit var previous: String
 
     private var nextX = 0
-    private var nextY:Int = 0
+    private var nextY = 0
     private var previousX:Int = 0
     private var previousY:Int = 0
 
-    var first = true
-
     init {
-        if (mapManager.exists("1village.tmx")) mapTmp = mapManager.get("1village.tmx")
+        mapTmp = mapManager.getCurrentMap()
         ppm.setPlayerX(162f)
         ppm.setPlayerY(142f)
     }
@@ -42,19 +40,24 @@ class LocalMap(private val plet: PApplet) {
     }
 
     fun display() {
-        if (first) {
+        if (mapManager.getChange()) {
+            mapTmp = mapManager.getCurrentMap()
             plet.rectMode(PConstants.CORNER)
-            val width: Int = mapTmp.mapTileWidth * mapTmp.tileWidth
-            val height: Int = mapTmp.mapTileHeight * mapTmp.tileHeight
+            val width = mapTmp.mapTileWidth * mapTmp.tileWidth
+            val height = mapTmp.mapTileHeight * mapTmp.tileHeight
+
             next = mapTmp.nextMap
             previous = mapTmp.previousMap
             nextX = mapTmp.nextX
             nextY = mapTmp.nextY
             previousX = mapTmp.previousX
             previousY = mapTmp.previousY
+
             plet.surface.setSize(width - 10, height - 10)
             plet.background(0)
-            first = false
+
+            ppm.setCanMove(true)
+            mapManager.notChange()
         }
 
         mapTmp.display(plet)
@@ -63,18 +66,20 @@ class LocalMap(private val plet: PApplet) {
         mapTmp.topDisplay(plet)
 
         if (mapTmp.isNext()) {
-            mapTmp = mapManager.get("$next.tmx")
-//            Collision.Playerx = nextX
-//            Collision.Playery = nextY
-            first = true
+            if (mapManager.exists("$next.tmx")){
+                mapManager.setCurrentMap(mapManager.get("$next.tmx"))
+            }else{
+                println("LocalMap.kt isNext 「$next.tmx」は存在しません。")
+            }
+
+            ppm.setPlayerX(nextX.toFloat())
+            ppm.setPlayerY(nextY.toFloat())
             if (mapTmp.name.contains("dungeon1")) stateType.setState(StateType.WORLD_STATE)
-            first = true
             plet.delay(100)
         }
 
         if (mapTmp.isBack()) {
-//            Main.state = StateType.LOCAL_STATE;
-            first = true
+            stateType.setState(StateType.LOCAL_STATE)
         }
     }
 }

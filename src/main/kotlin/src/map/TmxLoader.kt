@@ -31,9 +31,9 @@ class TmxLoader {
         val listBufImg: ArrayList<BufferedImage> = ArrayList() //解析したBufferedImageを加える
         val pImgList: ArrayList<PImage> = ArrayList() //BufferedImageをPImgListに変換
         val sqColList: ArrayList<SquareCollision> = ArrayList()
-//        val nextList: MutableList<MapTrigger> = ArrayList<MapTrigger>()
-//        val backList: MutableList<MapTrigger> = ArrayList<MapTrigger>()
-//        val bossList: MutableList<MapTrigger> = ArrayList<MapTrigger>()
+        val nextList: ArrayList<SquareCollision> = ArrayList()
+        val backList: ArrayList<SquareCollision> = ArrayList()
+        val bossList: ArrayList<SquareCollision> = ArrayList()
         val interactList: ArrayList<Interact> = ArrayList()
         val imgs: Array<PImage> //PImageの配列
         val factory = DocumentBuilderFactory.newInstance() // 1. DocumentBuilderFactoryのインスタンスを取得する
@@ -146,7 +146,7 @@ class TmxLoader {
                                         if (objYs.isNotEmpty()) objY = objYs.toFloat()
                                         if (objWidths.isNotEmpty()) objWidth = objWidths.toFloat()
                                         if (objHeights.isNotEmpty()) objHeight = objHeights.toFloat()
-//                                        nextList.add(MapTrigger(objX, objY, objWidth, objHeight, mapTileWidth * tileWidth - 10, mapTileHeight * tileHeight - 10))
+                                        nextList.add(SquareCollision(objX, objY, objWidth, objHeight, mapTileWidth * tileWidth - 10, mapTileHeight * tileHeight - 10))
                                     }
                                     nd1 = nd1.nextSibling //次のnodeを読み込む
                                 }
@@ -168,7 +168,7 @@ class TmxLoader {
                                         if (objYs.isNotEmpty()) objY = objYs.toFloat()
                                         if (objWidths.isNotEmpty()) objWidth = objWidths.toFloat()
                                         if (objHeights.isNotEmpty()) objHeight = objHeights.toFloat()
-//                                        backList.add(MapTrigger(objX, objY, objWidth, objHeight, mapTileWidth * tileWidth - 10, mapTileHeight * tileHeight - 10))
+                                        backList.add(SquareCollision(objX, objY, objWidth, objHeight, mapTileWidth * tileWidth - 10, mapTileHeight * tileHeight - 10))
                                     }
                                     nd1 = nd1.nextSibling //次のnodeを読み込む
                                 }
@@ -238,7 +238,7 @@ class TmxLoader {
             }
             imgs = pImgList.toTypedArray() //PImageのlistを配列に変換
             val mapManager = Main.mapManager
-            mapManager.register(mapName, MapTemplate(mapName, next, previous, nextX, nextY, previousX, previousY, mapTileWidth, mapTileHeight, tileWidth, tileHeight, mapList, sqColList, /*nextList, backList, bossList,*/ interactList, imgs)) //map情報を保存
+            mapManager.register(mapName, MapTemplate(mapName, next, previous, nextX, nextY, previousX, previousY, mapTileWidth, mapTileHeight, tileWidth, tileHeight, mapList, sqColList, nextList, backList, /*bossList,*/ interactList, imgs)) //map情報を保存
         } catch (e: Exception) {
             e.printStackTrace()
         }

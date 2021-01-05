@@ -19,6 +19,7 @@ class Interact(
     private val py1: Float,
 ) {
     private val ppm = Main.playerPositionManager
+    private val mapManager = Main.mapManager
     private lateinit var plet: PApplet
     
     private var playerX = 0f
@@ -26,7 +27,7 @@ class Interact(
     private var playerW = 0
     private var playerH = 0
 
-    private var count = 0
+    private var first = true
     private var chatCount = 0
     private var time = 0
 
@@ -39,16 +40,18 @@ class Interact(
     var runMoveEvent = false
 
     fun fixError(fx: Float, fy: Float) {
-        if (count == 0) {
+        if (first) {
             x -= fx
             y -= fy
-            count++
+            first = false
         }
     }
 
     fun trigger(): Boolean {
         playerX = ppm.getPlayerXY()[0]
         playerY = ppm.getPlayerXY()[1]
+        playerW = ppm.getPlayerWH()[0]
+        playerH = ppm.getPlayerWH()[1]
         if (playerX < x + width && playerX + playerW > x && playerY < y + height && playerY + playerH > y) {
             when{
                 playerX > x + width - 4 -> return true
@@ -121,10 +124,12 @@ class Interact(
 
     fun runMoveEvent() { //mapTmpの値を変化させる、座標とかも合わせて取得できるようにする
         if (runMoveEvent) {
-//            LocalMap.mapTmp = MapTemplate.maps.get("$name.tmx")
-//            LocalMap.count = 0
-            playerX = px1
-            playerY = py1
+            if (mapManager.exists("$name.tmx")){
+                val map = mapManager.get("$name.tmx")
+                mapManager.setCurrentMap(map)
+            }
+            ppm.setPlayerX(px1)
+            ppm.setPlayerY(py1)
             runMoveEvent = false
         }
     }

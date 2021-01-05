@@ -9,7 +9,7 @@ class PlayerPositionManager {
     private var playerWidth: Int = 0
     private var playerHeight: Int = 0
 
-    private var canMove: Boolean = true
+    private var canMove: Boolean = false
 
     private var up: Boolean = false
     private var down: Boolean = false

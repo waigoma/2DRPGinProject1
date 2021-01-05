@@ -35,6 +35,10 @@ class Main: PApplet() {
 
         TmxLoader()
 
+        //セーブとかするならこれ活用でいけそう
+        //今はとりあえず村として設定
+        mapManager.setCurrentMap(mapManager.get("1village.tmx"))
+
         title = Title(this)
         localMap = LocalMap(this)
         worldMap = WorldMap(this)
@@ -47,7 +51,6 @@ class Main: PApplet() {
         when(stateType.getState()){
             StateType.LOCAL_STATE -> localMap.keyPressed()
             StateType.WORLD_STATE -> worldMap.keyPressed()
-
         }
     }
 
@@ -55,7 +58,6 @@ class Main: PApplet() {
         when(stateType.getState()){
             StateType.LOCAL_STATE -> localMap.keyReleased()
             StateType.WORLD_STATE -> worldMap.keyPressed()
-
         }
     }
 

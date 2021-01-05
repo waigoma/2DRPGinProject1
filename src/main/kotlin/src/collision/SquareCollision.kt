@@ -77,4 +77,19 @@ class SquareCollision(
         ppm.setPlayerX(playerX)
         ppm.setPlayerY(playerY)
     }
+
+    fun colTrigger(): Boolean {
+        playerX = ppm.getPlayerXY()[0]
+        playerY = ppm.getPlayerXY()[1]
+        setWH()
+        if (playerX < x + width && playerX + playerWidth > x && playerY < y + height && playerY + playerHeight > y) {
+            when{
+                playerX > x + width - 4 -> return true
+                playerX + playerWidth < x + 4 -> return true
+                playerY > y + height / 2 -> return true
+                playerY + playerHeight < y + height / 2 -> return true
+            }
+        }
+        return false
+    }
 }

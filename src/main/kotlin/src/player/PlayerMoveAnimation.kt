@@ -63,7 +63,6 @@ class PlayerMoveAnimation(private val plet: PApplet) {
     fun draw() {
         playerX = ppm.getPlayerXY()[0]
         playerY = ppm.getPlayerXY()[1]
-
         if (right) {
             time++
             playerX += ppm.getPlayerSpeed()

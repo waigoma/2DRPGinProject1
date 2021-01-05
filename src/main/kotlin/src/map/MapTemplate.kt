@@ -20,6 +20,8 @@ class MapTemplate(
         val tileHeight: Int,
         private val list: List<Array<Int>>,
         private val sqColList: ArrayList<SquareCollision>,
+        private val nextList: ArrayList<SquareCollision>,
+        private val backList: ArrayList<SquareCollision>,
         private val interactList: ArrayList<Interact>,
         private val imgs: Array<PImage>
 ) {
@@ -103,24 +105,20 @@ class MapTemplate(
     }
 
     fun isNext(): Boolean {
-//        if (nextList != null) {
-//            for (nmt in getNextList()) {
-//                if (Main.state === StateType.LOCAL_STATE) nmt.fixError(-6, -3)
-//                if (Main.state === StateType.WORLD_STATE) nmt.fixError(4, 4)
-//                if (nmt.mapTrigger()) return true
-//            }
-//        }
+        for (nl in nextList) {
+            if (Main.stateType.getState() == StateType.LOCAL_STATE) nl.fixError(-6f, -3f)
+            if (Main.stateType.getState() == StateType.WORLD_STATE) nl.fixError(4f, 4f)
+            if (nl.colTrigger()) return true
+        }
         return false
     }
 
     fun isBack(): Boolean {
-//        if (getBackList() != null) {
-//            for (bmt in getBackList()) {
-//                if (Main.state === StateType.LOCAL_STATE) bmt.fixError(-6, -3)
-//                if (Main.state === StateType.WORLD_STATE) bmt.fixError(4, 4)
-//                if (bmt.mapTrigger()) return true
-//            }
-//        }
+        for (bmt in backList) {
+            if (Main.stateType.getState() == StateType.LOCAL_STATE) bmt.fixError(-6f, -3f)
+            if (Main.stateType.getState() == StateType.WORLD_STATE) bmt.fixError(4f, 4f)
+            if (bmt.colTrigger()) return true
+        }
         return false
     }
 
