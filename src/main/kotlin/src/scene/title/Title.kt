@@ -3,6 +3,7 @@ package src.scene.title
 import processing.core.PApplet
 import processing.core.PConstants
 import processing.core.PFont
+import src.api.TextFormat
 import src.scene.title.titlemenu.TitleMenu
 import java.awt.Font
 import java.awt.FontFormatException
@@ -11,27 +12,21 @@ import java.io.InputStream
 
 
 class Title(private val plet: PApplet) {
+    private val tf = TextFormat(plet)
     private val fadeSpeed = 1.75f
+
     //getResourceを使う時はFile.separatorを使ってはいけない。"/"を使う。
     private val url: InputStream = this.javaClass.getResourceAsStream("/data/PixelMplus12-Regular.ttf")
-    private lateinit var font: PFont
+    private var font: PFont
     private var titleMenu: TitleMenu
 
     var titleScene: Int = 0
     var count: Int = 0
     var fadeAlpha = 255f
 
-    //fontの読み込み
     init {
         plet.textAlign(PConstants.CENTER, PConstants.CENTER)
-
-        try {
-            font = PFont(Font.createFont(Font.TRUETYPE_FONT, url), false)
-        }catch (e: FontFormatException){
-            println("形式がフォントではありません。")
-        }catch (e: IOException) {
-            println("入出力エラーでフォントを読み込むことができませんでした。\n>>> " + e.message)
-        }
+        font = tf.getFont(url)
         titleMenu = TitleMenu(plet, font)
     }
 

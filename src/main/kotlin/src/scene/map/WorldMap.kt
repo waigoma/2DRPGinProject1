@@ -4,7 +4,7 @@ import processing.core.PApplet
 import processing.core.PConstants
 import src.Main
 import src.map.MapTemplate
-import src.player.PlayerMoveAnimation
+import src.character.player.PlayerMoveAnimation
 import src.state.StateType
 
 class WorldMap(private val plet: PApplet) {

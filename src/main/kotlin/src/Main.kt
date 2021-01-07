@@ -3,8 +3,8 @@ package src
 import processing.core.PApplet
 import src.map.MapManager
 import src.map.TmxLoader
-import src.player.PlayerPositionManager
-import src.player.PlayerStatManager
+import src.character.player.PlayerPositionManager
+import src.character.player.PlayerStatManager
 import src.scene.map.LocalMap
 import src.scene.map.WorldMap
 import src.state.StateType
@@ -14,11 +14,13 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.util.jar.JarFile
 import org.apache.commons.io.FileUtils
+import src.scene.combat.Combat
 import src.scene.title.option.OptionManager
 
 class Main: PApplet() {
     companion object{
         val pdFile = System.getProperty("user.dir") + File.separator + "ProcessingProject" + File.separator + "player_data.properties"
+        val mdFolder = System.getProperty("user.dir") + File.separator + "ProcessingProject" + File.separator + "mobs"
         val opFile = System.getProperty("user.dir") + File.separator + "ProcessingProject" + File.separator + "option.properties"
 
         lateinit var stateType: StateType
@@ -30,6 +32,7 @@ class Main: PApplet() {
     private lateinit var title: Title
     private lateinit var localMap: LocalMap
     private lateinit var worldMap: WorldMap
+    private lateinit var combat: Combat
 
     override fun settings() {
         size(1280, 720)
@@ -59,9 +62,11 @@ class Main: PApplet() {
         title = Title(this)
         localMap = LocalMap(this)
         worldMap = WorldMap(this)
+        combat = Combat(this)
 
         val font = createFont("MS Gothic", 50f)
         textFont(font)
+        stateType.setState(StateType.COMBAT_STATE)
     }
 
     override fun keyPressed() { //キー入力受付
@@ -69,12 +74,18 @@ class Main: PApplet() {
             StateType.LOCAL_STATE -> localMap.keyPressed()
             StateType.WORLD_STATE -> worldMap.keyPressed()
         }
+        if (key == ESC){
+            key = 0.toChar()
+        }
     }
 
     override fun keyReleased() { //キー解放
         when(stateType.getState()){
             StateType.LOCAL_STATE -> localMap.keyReleased()
             StateType.WORLD_STATE -> worldMap.keyReleased()
+        }
+        if (key == ESC){
+            key = 0.toChar()
         }
     }
 
@@ -91,6 +102,9 @@ class Main: PApplet() {
             }
             StateType.WORLD_STATE -> {
                 worldMap.display()
+            }
+            StateType.COMBAT_STATE -> {
+                combat.display()
             }
         }
     }

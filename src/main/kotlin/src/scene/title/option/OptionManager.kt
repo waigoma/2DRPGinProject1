@@ -9,14 +9,29 @@ class OptionManager {
 
     private var difficulty = EASY
 
+    /**
+     * 難易度取得
+     *
+     * @return Int difficulty
+     */
     fun getDifficulty(): Int{
         return difficulty
     }
 
+    /**
+     * 難易度設定
+     *
+     * @param difficulty Int
+     */
     fun setDifficulty(difficulty: Int){
         this.difficulty = difficulty
     }
 
+    /**
+     * 難易度をStringで取得
+     *
+     * @return String difficulty
+     */
     fun getStrDifficulty(): String{
         var strDifficulty = ""
         when(difficulty){

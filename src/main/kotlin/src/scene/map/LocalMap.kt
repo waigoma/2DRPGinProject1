@@ -5,8 +5,8 @@ import processing.core.PConstants
 import src.Main
 import src.map.MapManager
 import src.map.MapTemplate
-import src.player.PlayerMoveAnimation
-import src.player.PlayerPositionManager
+import src.character.player.PlayerMoveAnimation
+import src.character.player.PlayerPositionManager
 import src.state.StateType
 
 class LocalMap(private val plet: PApplet) {
