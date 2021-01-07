@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" nextX="173" nextY="142" previousX="162" previousY="142" previousMap="1village" nextMap="1village" width="25" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="19">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" nextX="540" nextY="230" previousX="162" previousY="142" previousMap="1village" nextMap="1village" width="25" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="19">
  <tileset firstgid="1" source="1village/black.tsx"/>
  <tileset firstgid="2" source="1village/map1218_09.tsx"/>
  <tileset firstgid="194" source="1village/map1218_04_.tsx"/>

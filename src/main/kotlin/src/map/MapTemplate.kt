@@ -123,12 +123,10 @@ class MapTemplate(
     }
 
     fun isBoss(): Boolean {
-//        if (getBackList() != null) {
-//            for (boss in getBossList()) {
-//                if (Main.state === StateType.LOCAL_STATE) boss.fixError(-6, -3)
-//                if (Main.state === StateType.WORLD_STATE) boss.fixError(4, 4)
-//                if (boss.mapTrigger()) return true
-//            }
+//        for (boss in bossList) {
+//            if (Main.state === StateType.LOCAL_STATE) boss.fixError(-6, -3)
+//            if (Main.state === StateType.WORLD_STATE) boss.fixError(4, 4)
+//            if (boss.mapTrigger()) return true
 //        }
         return false
     }

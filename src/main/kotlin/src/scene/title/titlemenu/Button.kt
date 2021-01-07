@@ -1,4 +1,4 @@
-package src.title.titlemenu
+package src.scene.title.titlemenu
 
 import processing.core.PApplet
 import processing.core.PConstants

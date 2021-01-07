@@ -1,4 +1,4 @@
-package src.scene
+package src.scene.map
 
 import processing.core.PApplet
 import processing.core.PConstants
@@ -22,8 +22,8 @@ class LocalMap(private val plet: PApplet) {
 
     private var nextX = 0
     private var nextY = 0
-    private var previousX:Int = 0
-    private var previousY:Int = 0
+    private var previousX = 0
+    private var previousY = 0
 
     init {
         mapTmp = mapManager.getCurrentMap()

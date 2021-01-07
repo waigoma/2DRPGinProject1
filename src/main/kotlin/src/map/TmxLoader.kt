@@ -17,6 +17,7 @@ class TmxLoader {
         val list = ArrayList<String>(listOf(
                 "1village.tmx",
                 "1vhouse1.tmx",
+                "1vhouse2.tmx",
                 "dungeon1.tmx"
         ))
         for (file in list) { //マップデータを1つずつ読み込む

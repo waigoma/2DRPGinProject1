@@ -1,4 +1,4 @@
-package src.scene
+package src.scene.map
 
 import processing.core.PApplet
 import processing.core.PConstants

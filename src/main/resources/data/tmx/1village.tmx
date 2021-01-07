@@ -319,7 +319,7 @@
   <objectgroup id="11" name="Interact">
    <object id="33" x="493" y="610" width="36" height="42" eventId="1" direction="up" name="掲示板"> この村のいろいろなイベントが記されている</object>
    <object id="34" x="645" y="640" width="25" height="40" eventId="1" direction="up" name="案内板"> ←村 平原→</object>
-   <object id="35" x="540" y="206" width="22" height="54" eventId="4" direction="up" name="1vhouse1" px="192" py="334"/>
+   <object id="35" x="540" y="206" width="22" height="54" eventId="4" direction="up" name="1vhouse2" px="192" py="334"/>
    <object id="36" x="173" y="110" width="22" height="57" eventId="4" direction="up" name="1vhouse1" px="192" py="334"/>
    <object id="37" x="170" y="608" width="24" height="59" eventId="0" direction="up" name="左下家" px="" py=""/>
   </objectgroup>

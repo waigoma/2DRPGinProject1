@@ -1,9 +1,9 @@
-package src.title
+package src.scene.title
 
 import processing.core.PApplet
 import processing.core.PConstants
 import processing.core.PFont
-import src.title.titlemenu.TitleMenu
+import src.scene.title.titlemenu.TitleMenu
 import java.awt.Font
 import java.awt.FontFormatException
 import java.io.IOException
