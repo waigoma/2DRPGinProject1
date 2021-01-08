@@ -3,9 +3,12 @@ package src.character.mob
 import src.Main
 import java.io.*
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class MobManager {
-    private var mobTemplate: MobTemplate? = null
+    private var mobTemplate = HashMap<String, MobTemplate>()
+    private var currentMob: MobTemplate? = null
     //mobロード作ってコンバット実装で終了
 
     /**
@@ -13,8 +16,8 @@ class MobManager {
      *
      * @param mt MobTemplate
      */
-    fun register(mt: MobTemplate){
-        mobTemplate = mt
+    fun register(name:  String, mt: MobTemplate){
+        mobTemplate[name] = mt
     }
 
     /**
@@ -22,36 +25,53 @@ class MobManager {
      */
     fun loadMobData(){
         val properties = Properties()
-        val file = Main.mdFolder
+        val dir = File(Main.mdFolder)
+        val list = dir.listFiles()
 
-        try {
-            val ins = FileInputStream(file)
-            val isr = InputStreamReader(ins, "UTF-8")
-            properties.load(isr)
-            ins.close()
-        }catch (e: IOException){
-            e.printStackTrace()
+        if (list != null){
+            for (file in list){
+                val ins = FileInputStream(file)
+                val isr = InputStreamReader(ins, "UTF-8")
+
+                properties.load(isr)
+                ins.close()
+
+                register(properties.getProperty("name"),
+                        MobTemplate(
+                                properties.getProperty("name"),
+                                file,
+                                properties.getProperty("level").toInt(),
+                                properties.getProperty("exp").toInt(),
+                                properties.getProperty("reqExp").toInt(),
+                                properties.getProperty("hp").toInt(),
+                                properties.getProperty("maxHp").toInt(),
+                                properties.getProperty("mp").toInt(),
+                                properties.getProperty("maxMp").toInt(),
+                                properties.getProperty("money").toInt()
+                        ))
+
+            }
         }
-
-        register(MobTemplate(
-                properties.getProperty("name"),
-                properties.getProperty("level").toInt(),
-                properties.getProperty("exp").toInt(),
-                properties.getProperty("reqExp").toInt(),
-                properties.getProperty("hp").toInt(),
-                properties.getProperty("maxHp").toInt(),
-                properties.getProperty("mp").toInt(),
-                properties.getProperty("maxMp").toInt(),
-                properties.getProperty("money").toInt()
-        ))
     }
 
     /**
      * get PlayerData
      *
-     * @return MobTemplate playerData
+     * @return MobTemplate mobData
      */
-    fun getMobData(): MobTemplate{
-        return mobTemplate!!
+    fun getMobData(name: String): MobTemplate{
+        return mobTemplate[name]!!
+    }
+
+    fun getMobNames(): Array<String> {
+        return mobTemplate.keys.toTypedArray()
+    }
+
+    fun setCurrentMob(md: MobTemplate){
+        currentMob = md
+    }
+
+    fun getCurrentMob(): MobTemplate{
+        return currentMob!!
     }
 }

@@ -14,13 +14,14 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.util.jar.JarFile
 import org.apache.commons.io.FileUtils
+import src.character.mob.MobManager
 import src.scene.combat.Combat
 import src.scene.title.option.OptionManager
 
 class Main: PApplet() {
     companion object{
-        val pdFile = System.getProperty("user.dir") + File.separator + "ProcessingProject" + File.separator + "player_data.properties"
-        val mdFolder = System.getProperty("user.dir") + File.separator + "ProcessingProject" + File.separator + "mobs"
+        val pdFile = System.getProperty("user.dir") + File.separator + "ProcessingProject" + File.separator + "player" + File.separator + "player_data.properties"
+        val mdFolder = System.getProperty("user.dir") + File.separator + "ProcessingProject" + File.separator + "mob"
         val opFile = System.getProperty("user.dir") + File.separator + "ProcessingProject" + File.separator + "option.properties"
 
         lateinit var stateType: StateType
@@ -28,6 +29,7 @@ class Main: PApplet() {
         lateinit var playerPositionManager: PlayerPositionManager
         lateinit var playerStatManager: PlayerStatManager
         lateinit var optionManager: OptionManager
+        lateinit var mobManager: MobManager
     }
     private lateinit var title: Title
     private lateinit var localMap: LocalMap
@@ -47,12 +49,14 @@ class Main: PApplet() {
         playerPositionManager = PlayerPositionManager()
         playerStatManager = PlayerStatManager()
         optionManager = OptionManager()
+        mobManager = MobManager()
 
         playerPositionManager.setPlayerSpeed(3)
 
         writeResources()
 
         playerStatManager.loadPlayerData()
+        mobManager.loadMobData()
         TmxLoader()
 
         //セーブとかするならこれ活用でいけそう
@@ -66,13 +70,14 @@ class Main: PApplet() {
 
         val font = createFont("MS Gothic", 50f)
         textFont(font)
-        stateType.setState(StateType.COMBAT_STATE)
+//        stateType.setState(StateType.COMBAT_STATE)
     }
 
     override fun keyPressed() { //キー入力受付
         when(stateType.getState()){
             StateType.LOCAL_STATE -> localMap.keyPressed()
             StateType.WORLD_STATE -> worldMap.keyPressed()
+            StateType.COMBAT_STATE -> combat.keyPressed()
         }
         if (key == ESC){
             key = 0.toChar()
@@ -83,12 +88,14 @@ class Main: PApplet() {
         when(stateType.getState()){
             StateType.LOCAL_STATE -> localMap.keyReleased()
             StateType.WORLD_STATE -> worldMap.keyReleased()
+            StateType.COMBAT_STATE -> combat.keyReleased()
         }
         if (key == ESC){
             key = 0.toChar()
         }
     }
 
+    //TODO
     //Combat作って、playerのステータス作れば基礎は終わり。
     //後は、セーブとかアイテムシステムとか村人との会話とか作ってみたい。
 
@@ -120,7 +127,7 @@ class Main: PApplet() {
         try {
             if (!file.exists()) {
                 file.mkdir()
-                saveResource("data/stat/player", file)
+                saveResource("data/stat", file)
                 saveResource("data/option", file)
             }
         }catch (e: IOException){

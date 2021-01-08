@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-up" compressionlevel="0" nextX="312" nextY="56" previousX="786" previousY="556" previousMap="dungeon2" nextMap="dungeon4" width="20" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="15">
- <tileset firstgid="1" source="src/waigoma/data/tsx/isseitsx/dungeonchip.tsx"/>
+ <tileset firstgid="1" source="isseitsx/dungeonchip.tsx"/>
  <layer id="1" name="ground" width="20" height="30">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,

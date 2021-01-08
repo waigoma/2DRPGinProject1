@@ -6,6 +6,7 @@ import java.util.*
 
 class MobTemplate(
         val name: String,
+        val file: File,
         var level: Int,
         var exp: Int,
         var reqExp: Int,
@@ -17,7 +18,6 @@ class MobTemplate(
 ) {
     fun save(){
         val properties = Properties()
-        val file = Main.mdFolder
 
         try {
             properties.setProperty("name", name)

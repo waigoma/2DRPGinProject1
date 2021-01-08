@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-up" compressionlevel="0" nextX="" nextY="" previousX="69" previousY="880" previousMap="dungeon3" nextMap="" width="20" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="12">
- <tileset firstgid="1" source="src/waigoma/data/tsx/isseitsx/dungeonchip.tsx"/>
- <tileset firstgid="329" source="src/waigoma/data/tsx/isseitsx/boss.tsx"/>
+ <tileset firstgid="1" source="isseitsx/dungeonchip.tsx"/>
+ <tileset firstgid="329" source="isseitsx/boss.tsx"/>
  <layer id="1" name="ground" width="20" height="20">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
