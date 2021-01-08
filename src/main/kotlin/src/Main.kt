@@ -148,15 +148,15 @@ class Main: PApplet() {
                     val parent = dest.parentFile
                     parent?.mkdirs()
                     val out = FileOutputStream(dest)
-                    val `in` = jar.getInputStream(entry)
+                    val ins = jar.getInputStream(entry)
                     try {
                         val buffer = ByteArray(8 * 1024)
                         var s = 0
-                        while (`in`.read(buffer).also { s = it } > 0) {
+                        while (ins.read(buffer).also { s = it } > 0) {
                             out.write(buffer, 0, s)
                         }
                     } finally {
-                        `in`.close()
+                        ins.close()
                         out.close()
                     }
                 }
