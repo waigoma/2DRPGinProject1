@@ -44,6 +44,9 @@ class Main: PApplet() {
         surface.setResizable(true)
         noStroke()
 
+        val surface = this.getSurface()
+        surface.setTitle("ProcessingProject")
+
         stateType = StateType()
         mapManager = MapManager()
         playerPositionManager = PlayerPositionManager()
