@@ -16,6 +16,10 @@ class PlayerStatTemplate(
         var money: Int
 ) {
 
+    fun addHp(changeHp: Int){
+        hp += changeHp
+    }
+
     /**
      * Add Exp
      */

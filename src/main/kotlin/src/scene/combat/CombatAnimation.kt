@@ -39,6 +39,11 @@ class CombatAnimation(private val plet: PApplet) {
         drawOutLine()
     }
 
+    fun narration(string: String){
+        tf.changeColorSize(0f, 28f, PConstants.LEFT)
+        plet.text(string, 310f, 620f)
+    }
+
     private fun drawOutLine(){//正味ごり押し感半端ない。もっときれいにできる。
         plet.rectMode(PConstants.CORNER)
         plet.strokeWeight(2f)
@@ -79,8 +84,8 @@ class CombatAnimation(private val plet: PApplet) {
     }
 
     private fun lifeGauge() {
-        val pWidth = playerData.hp / playerData.maxHp * 350
-        val mWidth = mob.hp / mob.maxHp * 350
+        val pWidth = playerData.hp.toFloat() / playerData.maxHp * 350
+        val mWidth = mob.hp.toFloat() / mob.maxHp * 350
         //player
         when{
             playerData.hp < playerData.maxHp * 0.2 -> plet.fill(255f, 0f, 0f)
@@ -88,7 +93,7 @@ class CombatAnimation(private val plet: PApplet) {
             else ->  plet.fill(0f, 255f, 0f)
         }
         plet.noStroke()
-        plet.rect(880f, 530f, pWidth.toFloat(), 30f)
+        plet.rect(880f, 530f, pWidth, 30f)
 
         //mob
         when{
@@ -97,6 +102,6 @@ class CombatAnimation(private val plet: PApplet) {
             else ->  plet.fill(0f, 255f, 0f)
         }
         plet.noStroke()
-        plet.rect(50f, 130f, 350f, 30f)
+        plet.rect(50f, 130f, mWidth, 30f)
     }
 }

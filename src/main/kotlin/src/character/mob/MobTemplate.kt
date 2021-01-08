@@ -6,7 +6,7 @@ import java.util.*
 
 class MobTemplate(
         val name: String,
-        val file: File,
+        private val file: File,
         var level: Int,
         var exp: Int,
         var reqExp: Int,
@@ -16,6 +16,11 @@ class MobTemplate(
         var maxMp: Int,
         var money: Int
 ) {
+
+    fun addHp(changeHp: Int){
+        hp += changeHp
+    }
+
     fun save(){
         val properties = Properties()
 
