@@ -161,6 +161,7 @@ class Combat(private val plet: PApplet) {
                     if (levelup) ca.narration("レベルが${playerData.level}に上がった！")
                     if (elapsed(2.0)) {
                         initialize()
+                        playerData.save()
                         Main.stateType.setState(StateType.WORLD_STATE)
                     }
                 }
