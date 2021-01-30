@@ -28,7 +28,7 @@ class PlayerMoveAnimation(private val plet: PApplet) {
         ppm.setPlayerHeight(playerImg.height)
     }
 
-    fun keyPressed() { // コード化されているキーが押された
+    fun keyPressed() { //綺麗にできると思う
         if (ppm.getCanMove()) {
             if (plet.keyCode == PConstants.RIGHT || plet.key == 'd' || plet.key == 'D') right = true
             if (plet.keyCode == PConstants.LEFT || plet.key == 'a' || plet.key == 'A') left = true
@@ -37,26 +37,39 @@ class PlayerMoveAnimation(private val plet: PApplet) {
         }
     }
 
-    fun keyReleased() { //キーが離されたら
-        if (plet.keyCode == PConstants.RIGHT || plet.key == 'd' || plet.key == 'D') {
-            playerImg = isTp.isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_D_stand.png"))
-            right = false
-        }
+    fun keyReleased() { //綺麗にできると思う
+        if (ppm.getCanMove()) {
+            if (plet.keyCode == PConstants.RIGHT || plet.key == 'd' || plet.key == 'D') {
+                playerImg = isTp.isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_D_stand.png"))
+                right = false
+            }
 
-        if (plet.keyCode == PConstants.LEFT || plet.key == 'a' || plet.key == 'A') {
-            playerImg = isTp.isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_A_stand.png"))
-            left = false
-        }
+            if (plet.keyCode == PConstants.LEFT || plet.key == 'a' || plet.key == 'A') {
+                playerImg = isTp.isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_A_stand.png"))
+                left = false
+            }
 
-        if (plet.keyCode == PConstants.UP || plet.key == 'w' || plet.key == 'W') {
-            playerImg = isTp.isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_W_stand.png"))
-            up = false
-        }
+            if (plet.keyCode == PConstants.UP || plet.key == 'w' || plet.key == 'W') {
+                playerImg = isTp.isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_W_stand.png"))
+                up = false
+            }
 
-        if (plet.keyCode == PConstants.DOWN || plet.key == 's' || plet.key == 'S') {
-            playerImg = isTp.isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_S_stand.png"))
-            down = false
+            if (plet.keyCode == PConstants.DOWN || plet.key == 's' || plet.key == 'S') {
+                playerImg = isTp.isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_S_stand.png"))
+                down = false
+            }
+        }else{
+            stopImg()
         }
+    }
+
+    /**
+     * 現在歩いているかどうかを返す
+     * @return Boolean
+     */
+    fun walking(): Boolean{
+        if (right || left || up || down) return true
+        return false
     }
 
     fun draw() {
@@ -128,5 +141,19 @@ class PlayerMoveAnimation(private val plet: PApplet) {
         }
         plet.image(playerImg, playerX, playerY)
     }
-    
+
+    /**
+     * 動きを止めて画像を動いていた方の向きで立ち止まる
+     */
+    fun stopImg(){
+        if (right) playerImg = isTp.isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_D_stand.png"))
+        if (left) playerImg = isTp.isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_A_stand.png"))
+        if (up) playerImg = isTp.isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_W_stand.png"))
+        if (down) playerImg = isTp.isToPImage(this.javaClass.getResourceAsStream("/data/img/character/playerImg_S_stand.png"))
+
+        right = false
+        left = false
+        up = false
+        down = false
+    }
 }

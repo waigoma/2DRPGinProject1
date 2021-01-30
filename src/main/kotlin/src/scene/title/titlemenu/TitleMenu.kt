@@ -4,8 +4,8 @@ import processing.core.PApplet
 import processing.core.PConstants
 import processing.core.PFont
 import src.Main
-import src.scene.title.option.OptionFile
-import src.scene.title.option.OptionManager
+import src.option.OptionFile
+import src.option.OptionManager
 import src.state.StateType
 
 class TitleMenu(private val plet: PApplet, private val font: PFont) {

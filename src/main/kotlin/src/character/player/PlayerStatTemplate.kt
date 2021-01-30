@@ -21,13 +21,24 @@ class PlayerStatTemplate(
     }
 
     /**
-     * Add Exp
+     * Add Money
+     * @param money Int
      */
-    fun addExp(exp: Int){
+    fun addMoney(money: Int){
+        this.money += money
+    }
+
+    /**
+     * Add Exp
+     * @param exp Int
+     */
+    fun addExp(exp: Int): Boolean{
         this.exp += exp
         if (exp >= reqExp){
             levelUp()
+            return true
         }
+        return false
     }
 
     /**

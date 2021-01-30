@@ -5,6 +5,7 @@ import processing.core.PConstants
 import src.Main
 import src.map.MapTemplate
 import src.character.player.PlayerMoveAnimation
+import src.map.Encounter
 import src.state.StateType
 
 class WorldMap(private val plet: PApplet) {
@@ -12,6 +13,7 @@ class WorldMap(private val plet: PApplet) {
     private val ppm = Main.playerPositionManager
     private val stateType: StateType = Main.stateType
 
+    private val encounter = Encounter(plet)
     private val pma = PlayerMoveAnimation(plet)
     
     private var mapTmp: MapTemplate
@@ -61,6 +63,7 @@ class WorldMap(private val plet: PApplet) {
         pma.draw()
         mapTmp.topDisplay(plet)
         mapTmp.event(plet)
+        encounter.randomEncounter(pma.walking(), pma)
 
         if (mapTmp.isNext()) {
             if (mapManager.exists("$next.tmx")){

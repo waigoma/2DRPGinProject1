@@ -1,4 +1,4 @@
-package src.scene.title.option
+package src.option
 
 import src.Main
 import java.io.*

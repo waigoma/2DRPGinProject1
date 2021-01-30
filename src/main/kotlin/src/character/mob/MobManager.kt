@@ -9,7 +9,7 @@ import kotlin.collections.HashMap
 class MobManager {
     private var mobTemplate = HashMap<String, MobTemplate>()
     private var currentMob: MobTemplate? = null
-    //mobロード作ってコンバット実装で終了
+    //mobロード作ってコンバット実装で終了 -> done
 
     /**
      * register PlayerData
@@ -60,7 +60,7 @@ class MobManager {
      * @return MobTemplate mobData
      */
     fun getMobData(name: String): MobTemplate{
-        return mobTemplate[name]!!
+        return mobTemplate[name]!!.copy()
     }
 
     fun getMobNames(): Array<String> {

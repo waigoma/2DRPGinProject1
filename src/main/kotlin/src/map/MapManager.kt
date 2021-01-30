@@ -59,6 +59,13 @@ class MapManager {
     }
 
     /**
+     * 変更あり
+     */
+    fun setChange() {
+        change = true
+    }
+
+    /**
      * 変更終了の合図
      */
     fun notChange(){

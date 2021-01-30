@@ -21,6 +21,9 @@ class MobTemplate(
         hp += changeHp
     }
 
+    //deep copy用
+    fun copy() = MobTemplate(name, file, level, exp, reqExp, hp, maxHp, mp, maxMp, money)
+
     fun save(){
         val properties = Properties()
 

@@ -16,7 +16,7 @@ import java.util.jar.JarFile
 import org.apache.commons.io.FileUtils
 import src.character.mob.MobManager
 import src.scene.combat.Combat
-import src.scene.title.option.OptionManager
+import src.option.OptionManager
 
 class Main: PApplet() {
     companion object{
@@ -44,8 +44,7 @@ class Main: PApplet() {
         surface.setResizable(true)
         noStroke()
 
-        val surface = this.getSurface()
-        surface.setTitle("ProcessingProject")
+        this.getSurface().setTitle("ProcessingProject")
 
         stateType = StateType()
         mapManager = MapManager()
@@ -99,7 +98,7 @@ class Main: PApplet() {
     }
 
     //TODO
-    //Combat作って、playerのステータス作れば基礎は終わり。
+    //Combat作って、playerのステータス作れば基礎は終わり。 -> done
     //後は、セーブとかアイテムシステムとか村人との会話とか作ってみたい。
 
     override fun draw() {//ステートマシン

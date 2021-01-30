@@ -1,4 +1,4 @@
-package src.scene.title.option
+package src.option
 
 class OptionManager {
     companion object{
