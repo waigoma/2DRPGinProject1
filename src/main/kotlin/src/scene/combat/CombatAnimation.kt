@@ -63,9 +63,14 @@ class CombatAnimation(private val plet: PApplet) {
         plet.fill(255f, 255f, 255f, 100f)
         //narration
         plet.rect(300f, 580f, plet.width - 310f, plet.height - 590f)
+
+        //guide
         plet.rect(10f, 400f, 280f, plet.height - 410f)
+        tf.changeColorSize(0f, 24f, PConstants.LEFT)
+        plet.text("<A> 攻撃", 20f, 450f)
 
         //player rect
+        plet.fill(255f, 255f, 255f, 100f)
         plet.rect(880f, 460f, 350f, 100f)
         plet.line(880f, 530f, 1230f, 530f)
         //player name

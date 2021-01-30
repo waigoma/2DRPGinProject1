@@ -75,7 +75,7 @@ class Combat(private val plet: PApplet) {
                 eventing = true
                 eventStartTime = plet.millis()
             } else {
-                ca.narration("${mobData.name}が現れた。\n${playerData.name}はどうする？(TODO)")
+                ca.narration("${mobData.name}が現れた。\n${playerData.name}はどうする？")
             }
         }else{
             when {
